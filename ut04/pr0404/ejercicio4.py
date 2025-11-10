@@ -5,32 +5,37 @@ asignaturas = {
     "Historia": ["María", "Juan", "Elena", "Ana"],
     "Inglés": ["Carlos", "Sofía", "Jorge", "María"],
 }
-bienvenida = print("BIENVENIDO AL PROGRAMA, ELIGE UNA DE LAS OPCIONES DISPONIBLES")
-opcion = 4
-while(opcion != 0):
-    opcion = int(input("1. Listar estudiantes matriculados en una asignatura\n2. Matricular un estudiante en una asignatura\n3. Dar de baja un estudiante de una asignatura\n0. Salir del programa\n\n"))
-    match opcion:
+print("****BIENVENIDO, ELIGE UNA DE LAS TRES OPCIONES DEL MENÚ****")
+acabado = False
+while(not acabado):
+    opcionMenu = int(input("\n****MENÚ****\n"
+                "1. Listar estudiantes matriculados en una asignatura.\n"
+                "2. Matricular un estudiante en una asignatura.\n" 
+                "3. Dar de baja un estudiante de una asignatura.\n" 
+                "0. Salir\n"))
+    match (opcionMenu):
         case 1:
-            nombreAsignatura = input("Introduce el nombre de la asignatura\n")
-            if nombreAsignatura in asignaturas:
-                print(f'Estudiantes de la asignatura {nombreAsignatura}')
-                for i in asignaturas.get(nombreAsignatura):
-                    print(i)
-            else:
-                print(f'No existe ninguna asignatura con el nombre: "{nombreAsignatura}", inténtalo de nuevo\n')
+            asignatura = input("\nEscribe el nombre de la asignatura de la cual deseas el listado de alumnos\n")
+            print("\nListado de alumnos de la asignatura: "+asignatura)
+            alumnosMatricula = {asignatura:asignaturas.get(i) for i in asignaturas.keys() if i == asignatura}
+            print(alumnosMatricula)
         case 2:
-            nombreEstudiante = input("Introduce el nombre del estudiante\n")
-            asignatura = input("Introduce el nombre de la asignatura\n")
-            if nombreEstudiante in asignaturas:
-                print(f'El estudiante con el nombre: {nombreEstudiante} ya está matriculado en la asignatura: {asignatura}')
-            elif asignatura not in asignaturas:
-                print(f'La asignatura: "{asignatura}" no se encuentra en el diccionario, inténtalo de nuevo\n')
-            elif len(nombreEstudiante) > 0 and len(asignatura) > 0:
-                for a,alumnos in asignaturas.items():
-                    if a == asignatura:
-                        alumnos.append(nombreEstudiante)
-                        print("Alumno agregado correctamente")
-                        break
-            else:
-                print(f'Error: debes proporcionar un nombre y una asignatura para realizar el proceso de matriculación\n')
-            
+            nombreAsignatura = input("\nEscribe el nombre de la asignatura en la que quieres matricular al alumno\n")
+            nombreEstudiante = input("Escribe el nombre del estudiante\n")
+            if nombreEstudiante not in nombreAsignatura:
+                listaEstudiante = asignaturas.get(nombreAsignatura)
+                listaEstudiante.append(nombreEstudiante)
+                asignaturas.update({nombreAsignatura:listaEstudiante})
+                print("\nAlumno/a matriculado/a correctamente\nLista de estudiantes actuales en la asignatura: "+nombreAsignatura)
+                print(asignaturas.get(nombreAsignatura))        
+        case 3:
+            nombreAsignatura = input("\nEscribe el nombre de la asignatura en la que quieres dar de baja a un alumno\n")
+            nombreEstudiante = input("Escribe el nombre del estudiante\n")
+            if nombreEstudiante not in nombreAsignatura:
+                listaEstudiante = asignaturas.get(nombreAsignatura)
+                listaEstudiante.remove(nombreEstudiante)
+                asignaturas.update({nombreAsignatura:listaEstudiante})
+                print("\nAlumno/a dado/a de baja correctamente\nLista de estudiantes actuales en la asignatura: "+nombreAsignatura)
+                print(asignaturas.get(nombreAsignatura))      
+        case 0:
+            acabado = True  
