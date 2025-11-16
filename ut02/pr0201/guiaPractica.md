@@ -98,4 +98,5 @@ services:
 Orden --> docker-compose up -d
 
 
-### Explicación de los parámetros
+### FICHERO COMPOSE COMPLETO
+[compose.yml](./compose.yml)
