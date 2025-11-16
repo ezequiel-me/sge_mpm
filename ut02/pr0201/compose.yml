@@ -1,0 +1,56 @@
+version: '3'
+services:
+  produccion-postgres:
+    image: postgres:14
+    container_name: produccion-postgres
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./produccion/data:/var/lib/postgresql/data
+
+  produccion-odoo:
+    image: odoo:16
+    container_name: produccion-odoo
+    depends_on:
+      - produccion-postgres
+    ports:
+      - "8069:8069"
+    volumes:
+      - ./produccion/addons:/mnt/extra-addons
+    environment:
+      - HOST=produccion-postgres
+      - USER=odoo
+      - PASSWORD=odoo
+    user: root
+    command: --dev=all
+
+
+  desarrollo-postgres:
+    image: postgres:14
+    container_name: desarrollo-postgres
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+    volumes:
+      - ./desarrollo/data:/var/lib/postgresql/data
+
+  desarrollo-odoo:
+    image: odoo:16
+    container_name: desarrollo-odoo
+    depends_on:
+      - desarrollo-postgres
+    ports:
+      - "8070:8069"
+    volumes:
+      - ./desarrollo/addons:/mnt/extra-addons
+      - ./desarrollo/filestore:/var/lib/odoo/filestore
+      - ./desarrollo/sessions:/var/lib/odoo/sessions
+    environment:
+      - HOST=desarrollo-postgres
+      - USER=odoo
+      - PASSWORD=odoo
+    user: root
+    command: --dev=all

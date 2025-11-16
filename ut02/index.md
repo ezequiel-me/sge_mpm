@@ -1,0 +1,1 @@
+# PRACTICAS UT02: Instalación y configuración de un ERP
