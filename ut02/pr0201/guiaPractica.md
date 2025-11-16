@@ -4,12 +4,17 @@
 ### 1. Crear estructura de carpetas para entorno de producción
 
 mkdir -p ./produccion/data  
+
 mkdir -p ./desarrollo/addons               
 
 ### 2. Crear estructura de carpetas para entorno de desarrollo.
+
 mkdir -p ./desarrollo/data
+
 mkdir -p ./desarrollo/addons
+
 mkdir -p ./desarrollo/filestore
+
 mkdir -p ./desarrollo/sessions 
 
 
